@@ -186,38 +186,74 @@ public class Controller implements Initializable {
     @FXML
     private Label lblStatus;
 
+    @FXML
+    private Label labelTiket;
+
     /**
      * Method buttonCreateMaskapai dari onAction pane create maskapai untuk mengatur fungsi button dalam insert, update, delete
+     *
      * @param event
      */
     @FXML
     void buttonCreateMaskapai(ActionEvent event) {
-        if (event.getSource() == createButtonMaskapai){
-            insertMaskapai();
-        }else if (event.getSource() == updateButtonMaskapai){
-            updateMaskapai();
-        }else if (event.getSource() == deleteButtonMaskapai){
-            deleteMaskapai();
+        if (event.getSource() == createButtonMaskapai) {
+            if (!inputCreateMaskapai.getText().isBlank()) {
+                insertMaskapai();
+                inputCreateMaskapai.clear();
+            }
+        } else if (event.getSource() == updateButtonMaskapai) {
+            if (!inputCreateMaskapai.getText().isBlank()) {
+                updateMaskapai();
+                inputCreateMaskapai.clear();
+            }
+        } else if (event.getSource() == deleteButtonMaskapai) {
+            if (!inputUpdateMaskapai.getText().isBlank()) {
+                deleteMaskapai();
+                inputCreateMaskapai.clear();
+            }
         }
     }
 
     /**
      * Method buttonCreateTiket dari onAction pane create maskapai untuk mengatur fungsi button dalam insert, update, delete
+     *
      * @param event
      */
     @FXML
     void buttonCreateTiket(ActionEvent event) {
-        if(event.getSource() == createButtonTiket){
-            insertTiket();
-        }else if(event.getSource() == updateButtonTiket){
-            updateTiket();
-        }else if (event.getSource() == buttonSearchShowTiket){
-            deleteTiket();
+        if (event.getSource() == createButtonTiket) {
+            if (!inputTujuan.getText().isBlank() || !inputStok.getText().isBlank() || !inputKelas.getText().isBlank()) {
+                insertTiket();
+                inputTujuan.clear();
+                inputStok.clear();
+                inputKelas.clear();
+            } else {
+                labelTiket.setText("tidak boleh kosong");
+            }
+        } else if (event.getSource() == updateButtonTiket) {
+            if (!inputTujuan.getText().isBlank() || !inputStok.getText().isBlank() || !inputKelas.getText().isBlank()) {
+                updateTiket();
+                inputTujuan.clear();
+                inputStok.clear();
+                inputKelas.clear();
+            } else {
+                labelTiket.setText("tidak boleh kosong");
+            }
+        } else if (event.getSource() == buttonSearchShowTiket) {
+            if (!inputTujuan.getText().isBlank() || !inputStok.getText().isBlank() || !inputKelas.getText().isBlank()) {
+                deleteTiket();
+                inputTujuan.clear();
+                inputStok.clear();
+                inputKelas.clear();
+            } else {
+                labelTiket.setText("tidak boleh kosong");
+            }
         }
     }
 
     /**
      * Method untuk menginisialisasi ketika program dibuka maka akan menjalankan method di dalamnya
+     *
      * @param location
      * @param resources
      */
@@ -233,12 +269,12 @@ public class Controller implements Initializable {
      */
     private void showOptionMaskapai() {
         ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection =connectionClass.getConnection();
+        Connection connection = connectionClass.getConnection();
         Statement st;
         ObservableList<String> list = FXCollections.observableArrayList();
         try {
             ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM maskapai");
-            while (rs.next()){
+            while (rs.next()) {
                 list.add(rs.getString("namaMaskapai"));
             }
         } catch (SQLException throwables) {
@@ -250,26 +286,27 @@ public class Controller implements Initializable {
 
     /**
      * Method untuk mengatur button yang ada pada menu admin dan mengarahkan ke gridpane sesuai yang dipilih
+     *
      * @param actionEvent
      */
     @FXML
     public void handleClicks(javafx.event.ActionEvent actionEvent) {
-        if(actionEvent.getSource() == createMaskapai){
+        if (actionEvent.getSource() == createMaskapai) {
             lblStatus.setText("Create Maskapai");
             pnMaskapai.toFront();
 //            pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(63, 43, 99), CornerRadii.EMPTY, Insets.EMPTY)));
-        }else if(actionEvent.getSource() == createTiket){
+        } else if (actionEvent.getSource() == createTiket) {
             lblStatus.setText("Create Tiket");
             pnTiket.toFront();
-        }else if(actionEvent.getSource() == showMaskapai){
+        } else if (actionEvent.getSource() == showMaskapai) {
             lblStatus.setText("Show Maskapai");
             pnShowMaskapai.toFront();
-        }else if(actionEvent.getSource() == showTiket){
+        } else if (actionEvent.getSource() == showTiket) {
             lblStatus.setText("Show Tiket");
             pnShowTiket.toFront();
-        }else if(actionEvent.getSource() == close){
+        } else if (actionEvent.getSource() == close) {
 
-        }else if(actionEvent.getSource() == history){
+        } else if (actionEvent.getSource() == history) {
             lblStatus.setText("Show History");
             pnHistory.toFront();
         }
@@ -277,23 +314,25 @@ public class Controller implements Initializable {
 
     /**
      * Method untuk menghentikan program ketika mengeklik close pada menu admin
+     *
      * @param actionEvent
      */
     @FXML
     public void handleClose(MouseEvent actionEvent) {
-        if(actionEvent.getSource() == close){
+        if (actionEvent.getSource() == close) {
             System.exit(0);
         }
     }
 
     /**
      * Method untuk menampilkan data maskapai dari db untuk ditampilkan pada tabel admin, memanggil class Maskapai untuk menyimpan data dari db
+     *
      * @return maskapaiList
      */
-    public ObservableList<Maskapai> getMaskapaiList(){
+    public ObservableList<Maskapai> getMaskapaiList() {
         ObservableList<Maskapai> maskapaiList = FXCollections.observableArrayList();
         ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection =connectionClass.getConnection();
+        Connection connection = connectionClass.getConnection();
         String sql = "SELECT * FROM MASKAPAI";
         Statement st;
         ResultSet rs;
@@ -301,7 +340,7 @@ public class Controller implements Initializable {
             st = connection.createStatement();
             rs = st.executeQuery(sql);
             Maskapai maskapai;
-            while (rs.next()){
+            while (rs.next()) {
                 maskapai = new Maskapai(rs.getInt("idMaskapai"), rs.getString("namaMaskapai"));
                 maskapaiList.add(maskapai);
             }
@@ -314,7 +353,7 @@ public class Controller implements Initializable {
     /**
      * Method untuk menampilkan pada tabel dengan memakai nama kolom dan diberikan nilai
      */
-    public void showMaskapai(){
+    public void showMaskapai() {
         ObservableList<Maskapai> list = getMaskapaiList();
         colIdMaskapai.setCellValueFactory(new PropertyValueFactory<Maskapai, Integer>("idMaskapai"));
         tableMaskapai.setCellValueFactory(new PropertyValueFactory<Maskapai, String>("namaMaskapai"));
@@ -324,8 +363,8 @@ public class Controller implements Initializable {
     /**
      * Method yang berisi query untuk memasukan data dari form menuju database
      */
-    private void insertMaskapai(){
-        String sql = "INSERT INTO maskapai (namaMaskapai) VALUES('"+inputCreateMaskapai.getText()+"')";
+    private void insertMaskapai() {
+        String sql = "INSERT INTO maskapai (namaMaskapai) VALUES('" + inputCreateMaskapai.getText() + "')";
         executeQuery(sql);
         showOptionMaskapai();
         showMaskapai();
@@ -334,20 +373,22 @@ public class Controller implements Initializable {
     /**
      * Method untuk mengupdate data jika terjadi kesalahan pada data yang telah diinputkan
      */
-    private void updateMaskapai(){
-        String sql = "UPDATE maskapai SET namaMaskapai = '"+inputCreateMaskapai.getText()+"' WHERE idMaskapai = "+inputUpdateMaskapai.getText()+"";
+    private void updateMaskapai() {
+        String sql = "UPDATE maskapai SET namaMaskapai = '" + inputCreateMaskapai.getText() + "' WHERE idMaskapai = " + inputUpdateMaskapai.getText() + "";
         executeQuery(sql);
+        showOptionMaskapai();
         showMaskapai();
     }
 
     /**
      * Method untuk menget data dari database untuk nantinya ditampilkan pada tabel
+     *
      * @return tiketList
      */
-    public ObservableList<Tiket> getTiketList(){
+    public ObservableList<Tiket> getTiketList() {
         ObservableList<Tiket> tiketList = FXCollections.observableArrayList();
         ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection =connectionClass.getConnection();
+        Connection connection = connectionClass.getConnection();
         String sql = "SELECT * FROM tiket";
         Statement st;
         ResultSet rs;
@@ -355,8 +396,8 @@ public class Controller implements Initializable {
             st = connection.createStatement();
             rs = st.executeQuery(sql);
             Tiket tiket;
-            while (rs.next()){
-                tiket = new Tiket(rs.getInt("idTiket"), rs.getString("tujuan"), rs.getString("waktu"), rs.getInt("stok"),  rs.getString("kelas"), rs.getString("namaMaskapai"));
+            while (rs.next()) {
+                tiket = new Tiket(rs.getInt("idTiket"), rs.getString("tujuan"), rs.getString("waktu"), rs.getInt("stok"), rs.getString("kelas"), rs.getString("namaMaskapai"));
                 tiketList.add(tiket);
             }
         } catch (SQLException throwables) {
@@ -368,7 +409,7 @@ public class Controller implements Initializable {
     /**
      * Method untuk menampilkan data dari database ke tabel halaman show tiket
      */
-    public void showTiket(){
+    public void showTiket() {
         ObservableList<Tiket> list = getTiketList();
         tableShowTiketId.setCellValueFactory(new PropertyValueFactory<Tiket, Integer>("idTiket"));
         tableShowTiketMaskapai.setCellValueFactory(new PropertyValueFactory<Tiket, String>("namaMaskapai"));
@@ -383,28 +424,31 @@ public class Controller implements Initializable {
      * Method untuk memasukan data dari form tiket menuju database tabel tiket
      */
     private void insertTiket() {
-        String sql = "INSERT INTO tiket (namaMaskapai, tujuan, waktu, stok, kelas) VALUES('"+optionMaskapai.getValue()+"','"+inputTujuan.getText()+"','"+inputWaktu.getValue()+"',"+inputStok.getText()+",'"+inputKelas.getText()+"')";
+        String sql = "INSERT INTO tiket (namaMaskapai, tujuan, waktu, stok, kelas) VALUES('" + optionMaskapai.getValue() + "','" + inputTujuan.getText() + "','" + inputWaktu.getValue() + "'," + inputStok.getText() + ",'" + inputKelas.getText() + "')";
         executeQuery(sql);
         showTiket();
-        System.out.println("lalalal"+inputWaktu.toString());
+        showOptionMaskapai();
+        System.out.println("lalalal" + inputWaktu.toString());
     }
 
     /**
      * Method untuk mengupdate data tiket yang telah diinputkan jika terjadi kesalahan input
      */
-    private void updateTiket(){
-        String sql = "UPDATE tiket SET namaMaskapai = '"+optionMaskapai.getValue()+"', tujuan = '"+inputTujuan.getText()+"', waktu = '"+inputWaktu.getValue()+"', stok = "+inputStok.getText()+", kelas = '"+inputKelas.getText()+"' WHERE idTiket = "+inputIdTiket.getText()+"";
+    private void updateTiket() {
+        String sql = "UPDATE tiket SET namaMaskapai = '" + optionMaskapai.getValue() + "', tujuan = '" + inputTujuan.getText() + "', waktu = '" + inputWaktu.getValue() + "', stok = " + inputStok.getText() + ", kelas = '" + inputKelas.getText() + "' WHERE idTiket = " + inputIdTiket.getText() + "";
         executeQuery(sql);
+        showOptionMaskapai();
         showTiket();
     }
 
     /**
      * Method berfungsi untuk menjalankan query yang telah dibuat pada sebuah method
+     *
      * @param sql
      */
     private void executeQuery(String sql) {
         ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection =connectionClass.getConnection();
+        Connection connection = connectionClass.getConnection();
         Statement st;
         try {
             st = connection.createStatement();
@@ -417,61 +461,65 @@ public class Controller implements Initializable {
     /**
      * Method untuk menghapus data maskapai dengan id tertentu
      */
-    private void deleteMaskapai(){
-        String sql = "DELETE FROM maskapai WHERE idMaskapai = "+inputUpdateMaskapai.getText()+"";
+    private void deleteMaskapai() {
+        String sql = "DELETE FROM maskapai WHERE idMaskapai = " + inputUpdateMaskapai.getText() + "";
         executeQuery(sql);
+        showOptionMaskapai();
         showMaskapai();
     }
 
     /**
      * Method untuk menghapus data tiket dengan id tertentu
      */
-    private void deleteTiket(){
-        String sql = "DELETE FROM tiket WHERE idtiket = "+inputSearchShowTiket.getText()+"";
+    private void deleteTiket() {
+        String sql = "DELETE FROM tiket WHERE idtiket = " + inputSearchShowTiket.getText() + "";
         executeQuery(sql);
+        showOptionMaskapai();
         showTiket();
     }
 
     /**
      * method untuk memberikan efek hover dengan berbeda warna dan ukuran dari normal
+     *
      * @param mouseEvent
      */
     public void hover(MouseEvent mouseEvent) {
-        if(mouseEvent.getSource() == createMaskapai){
+        if (mouseEvent.getSource() == createMaskapai) {
             createMaskapai.setStyle("-fx-background-color: #076180;-fx-font-size:17;");
-        }else if(mouseEvent.getSource() == createTiket){
+        } else if (mouseEvent.getSource() == createTiket) {
             createTiket.setStyle("-fx-background-color: #076180;-fx-font-size:17;");
-        }else if(mouseEvent.getSource() == showMaskapai){
+        } else if (mouseEvent.getSource() == showMaskapai) {
             showMaskapai.setStyle("-fx-background-color: #076180;-fx-font-size:17;");
-        }else if(mouseEvent.getSource() == showTiket){
+        } else if (mouseEvent.getSource() == showTiket) {
             showTiket.setStyle("-fx-background-color: #076180;-fx-font-size:17;");
-        }else if(mouseEvent.getSource() == createButtonMaskapai){
+        } else if (mouseEvent.getSource() == createButtonMaskapai) {
             createButtonMaskapai.setStyle("-fx-background-color: #076180;");
-        }else if(mouseEvent.getSource() == close){
+        } else if (mouseEvent.getSource() == close) {
             close.setStyle("-fx-background-color: #076180;-fx-font-size:17;");
-        }else if(mouseEvent.getSource() == history){
+        } else if (mouseEvent.getSource() == history) {
             history.setStyle("-fx-background-color: #076180;-fx-font-size:17;");
         }
     }
 
     /**
      * Method untuk mengembalikan kondisi setlah hover
+     *
      * @param mouseEvent
      */
     public void unhover(MouseEvent mouseEvent) {
-        if(mouseEvent.getSource() == createMaskapai){
+        if (mouseEvent.getSource() == createMaskapai) {
             createMaskapai.setStyle("-fx-background-color:transparent;");
-        }else if(mouseEvent.getSource() == createTiket){
+        } else if (mouseEvent.getSource() == createTiket) {
             createTiket.setStyle("-fx-background-color: transparent;");
-        }else if(mouseEvent.getSource() == showMaskapai){
+        } else if (mouseEvent.getSource() == showMaskapai) {
             showMaskapai.setStyle("-fx-background-color: transparent;");
-        }else if(mouseEvent.getSource() == showTiket){
+        } else if (mouseEvent.getSource() == showTiket) {
             showTiket.setStyle("-fx-background-color: transparent;");
-        }else if(mouseEvent.getSource() == createButtonMaskapai){
+        } else if (mouseEvent.getSource() == createButtonMaskapai) {
             createButtonMaskapai.setStyle("-fx-background-color:  #006680;");
-        }else if(mouseEvent.getSource() == close){
+        } else if (mouseEvent.getSource() == close) {
             close.setStyle("-fx-background-color: transparent;");
-        }else if(mouseEvent.getSource() == history){
+        } else if (mouseEvent.getSource() == history) {
             history.setStyle("-fx-background-color: transparent;");
         }
     }

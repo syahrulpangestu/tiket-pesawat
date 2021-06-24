@@ -173,26 +173,27 @@
                         <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="178.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="178.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="178.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="159.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="178.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="76.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="94.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <HBox spacing="10.0">
+                        <HBox minWidth="-Infinity" spacing="10.0">
                             <children>
-                                <Label prefHeight="18.0" prefWidth="200.0" text="Maskapai" />
-                                <ComboBox fx:id="optionMaskapai" prefHeight="28.0" prefWidth="720.0" />
+                                <Label prefHeight="18.0" prefWidth="111.0" text="Maskapai" />
+                                <ComboBox fx:id="optionMaskapai" prefHeight="28.0" prefWidth="641.0" />
                             </children>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" spacing="10.0" GridPane.rowIndex="1">
+                        <HBox layoutX="10.0" layoutY="10.0" minWidth="-Infinity" spacing="10.0" GridPane.rowIndex="1">
                             <children>
-                                <Label prefHeight="18.0" prefWidth="200.0" text="Tujuan" />
-                                <TextField fx:id="inputTujuan" prefHeight="35.0" prefWidth="723.0" />
+                                <Label prefHeight="21.0" prefWidth="111.0" text="Tujuan" />
+                                <TextField fx:id="inputTujuan" prefHeight="35.0" prefWidth="641.0" />
                             </children>
                         </HBox>
                         <HBox layoutX="10.0" layoutY="87.0" spacing="10.0" GridPane.rowIndex="2">
                             <children>
-                                <Label prefHeight="18.0" prefWidth="235.0" text="Waktu" />
-                                <DatePicker fx:id="inputWaktu" prefWidth="759.0" />
+                                <Label prefHeight="18.0" prefWidth="200.0" text="Waktu" />
+                                <DatePicker fx:id="inputWaktu" minWidth="-Infinity" prefHeight="31.0" prefWidth="641.0" />
                             </children>
                         </HBox>
                         <HBox layoutX="10.0" layoutY="164.0" spacing="10.0" GridPane.rowIndex="3">
@@ -209,14 +210,19 @@
                         </HBox>
                         <HBox layoutX="10.0" layoutY="267.0" spacing="10.0" GridPane.rowIndex="5">
                             <children>
-                        <TextField fx:id="inputIdTiket" prefHeight="35.0" prefWidth="730.0" />
-                        <Button fx:id="updateButtonTiket" mnemonicParsing="false" onAction="#buttonCreateTiket" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="745.0" style="-fx-background-color: #006680;" text="Update" textFill="WHITE" />
-                                <Button fx:id="createButtonTiket" mnemonicParsing="false" onAction="#buttonCreateTiket" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="745.0" style="-fx-background-color: #006680;" text="Create" textFill="WHITE" />
+                        <Label fx:id="labelTiket" alignment="CENTER" prefHeight="21.0" prefWidth="802.0" />
                             </children>
                         </HBox>
+                  <HBox layoutX="10.0" layoutY="337.0" spacing="10.0" GridPane.rowIndex="6">
+                     <children>
+                        <TextField fx:id="inputIdTiket" minWidth="-Infinity" prefHeight="35.0" prefWidth="139.0" promptText="ID" />
+                        <Button fx:id="updateButtonTiket" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonCreateTiket" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="300.0" style="-fx-background-color: #006680;" text="Update" textFill="WHITE" />
+                        <Button fx:id="createButtonTiket" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonCreateTiket" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="300.0" style="-fx-background-color: #006680;" text="Create" textFill="WHITE" />
+                     </children>
+                  </HBox>
                     </children>
                 </GridPane>
-                <GridPane fx:id="pnMaskapai" prefHeight="456.0" prefWidth="662.0" style="-fx-background-color: #fff;">
+                <GridPane fx:id="pnMaskapai" prefHeight="456.0" prefWidth="762.0" style="-fx-background-color: #fff;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -236,11 +242,11 @@
                         </TableView>
                         <HBox prefWidth="487.0" spacing="10.0">
                             <children>
-                                <TextField fx:id="inputUpdateMaskapai" prefHeight="35.0" prefWidth="134.0" promptText="ID" />
-                        <TextField fx:id="inputCreateMaskapai" prefHeight="35.0" prefWidth="448.0" promptText="Nama Maskapai" />
-                                <Button fx:id="createButtonMaskapai" mnemonicParsing="false" onAction="#buttonCreateMaskapai" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #006680;" text="Create" textFill="WHITE" />
-                        <Button fx:id="updateButtonMaskapai" mnemonicParsing="false" onAction="#buttonCreateMaskapai" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #006680;" text="Update" textFill="WHITE" />
-                        <Button fx:id="deleteButtonMaskapai" mnemonicParsing="false" onAction="#buttonCreateMaskapai" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #006680;" text="Delete" textFill="WHITE" />
+                                <TextField fx:id="inputUpdateMaskapai" minWidth="-Infinity" prefHeight="35.0" prefWidth="64.0" promptText="ID" />
+                        <TextField fx:id="inputCreateMaskapai" prefHeight="35.0" prefWidth="329.0" promptText="Nama Maskapai" />
+                                <Button fx:id="createButtonMaskapai" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonCreateMaskapai" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="105.0" style="-fx-background-color: #006680;" text="Create" textFill="WHITE" />
+                        <Button fx:id="updateButtonMaskapai" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonCreateMaskapai" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="105.0" style="-fx-background-color: #006680;" text="Update" textFill="WHITE" />
+                        <Button fx:id="deleteButtonMaskapai" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonCreateMaskapai" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="34.0" prefWidth="105.0" style="-fx-background-color: #006680;" text="Delete" textFill="WHITE" />
                             </children>
                         </HBox>
                     </children>
